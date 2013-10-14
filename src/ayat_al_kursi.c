@@ -12,6 +12,8 @@ PBL_APP_INFO(MY_UUID,
 Window window;
 BmpContainer image_container;
 
+// No function prototypes since all functions are defined before first use.
+
 void handle_init(AppContextRef ctx) {
 
   window_init(&window, "Ayat Al Kursi");
@@ -31,6 +33,7 @@ void handle_deinit(AppContextRef ctx) {
 
 }
 
+// Pebble watch apps entry point/main function.
 void pbl_main(void *params) {
 
   PebbleAppHandlers handlers = {
@@ -38,6 +41,7 @@ void pbl_main(void *params) {
     .deinit_handler = &handle_deinit
   };
   
+  // Kickstart event loop.
   app_event_loop(params, &handlers);
   
 }
