@@ -1,8 +1,3 @@
-
-# Ignore ignore files
-.hgignore
-.gitignore
-
 # Ignore waf build tool generated files
 .waf*
 build
