@@ -1,4 +1,4 @@
-#include "pebble.h"
+#include <pebble.h>
 
 static Window *window;
 static BitmapLayer *image_layer;
@@ -41,5 +41,7 @@ int main(void) {
   app_event_loop();
 
   deinit_app();
+
+  return 0;
   
 }
