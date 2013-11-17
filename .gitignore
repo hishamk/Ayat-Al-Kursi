@@ -5,7 +5,8 @@ build
 
 # Ignore linked files/directories
 waf
-wscript
+# Do not ignore wscript as it is needed for compiling with pebble build.
+#wscript
 tools
 include
 lib

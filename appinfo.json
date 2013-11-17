@@ -1,0 +1,21 @@
+{
+  "uuid": "b41e4183-5b69-463f-a8f1-20253cc01064",
+  "shortName": "Ayat Al Kursi",
+  "longName": "Ayat Al Kursi",
+  "companyName": "Binary Bakery",
+  "versionCode": 2,
+  "versionLabel": "2.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {},
+  "resources": {
+    "media": [
+      {
+       "type":"png",
+       "name":"IMAGE_AYAT_AL_KURSI",
+       "file":"images/ayat_al_kursi.png"
+      }
+    ]
+  }
+}

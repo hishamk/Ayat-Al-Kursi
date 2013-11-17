@@ -1,47 +1,45 @@
-#include "pebble_os.h"
-#include "pebble_app.h"
-#include "pebble_fonts.h"
+#include "pebble.h"
 
-#define MY_UUID { 0xB4, 0x1E, 0x41, 0x83, 0x5B, 0x69, 0x46, 0x3F, 0xA8, 0xF1, 0x20, 0x25, 0x3C, 0xC0, 0x10, 0x64 }
-PBL_APP_INFO(MY_UUID,
-             "Ayat Al Kursi", "Binary Bakery",
-             1, 0, /* App version */
-             DEFAULT_MENU_ICON,
-             APP_INFO_STANDARD_APP);
-
-Window window;
-BmpContainer image_container;
+static Window *window;
+static BitmapLayer *image_layer;
+static GBitmap *image;
 
 // No function prototypes since all functions are defined before first use.
 
-void handle_init(AppContextRef ctx) {
+static void init_app() {
 
-  window_init(&window, "Ayat Al Kursi");
-  window_stack_push(&window, true /* Animated */);
-  resource_init_current_app(&AYAT_AL_KURSI_IMAGE_RESOURCES);
-  
-  // Initializes BmpContainer and loads the image resource with given identifier.
-  bmp_init_container(RESOURCE_ID_IMAGE_AYAT_AL_KURSI, &image_container);
-  layer_add_child(&window.layer, &image_container.layer.layer);
+  window = window_create();
+  window_stack_push(window, true /* Animated */);
+
+  Layer *window_layer = window_get_root_layer(window);
+  GRect bounds = layer_get_frame(window_layer);
+
+  image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_AYAT_AL_KURSI);
+
+  image_layer = bitmap_layer_create(bounds);
+  bitmap_layer_set_bitmap(image_layer, image);
+  bitmap_layer_set_alignment(image_layer, GAlignTop);
+
+  layer_add_child(window_layer, bitmap_layer_get_layer(image_layer));
   
 }
 
-void handle_deinit(AppContextRef ctx) {
+static void deinit_app() {
 
-  // Frees up the memory used by initialized BmpContainer.
-  bmp_deinit_container(&image_container);
+  // Frees up the memory used by initialized image.
+  gbitmap_destroy(image);
+  bitmap_layer_destroy(image_layer);
+  window_destroy(window);
 
 }
 
-// Pebble watch apps entry point/main function.
-void pbl_main(void *params) {
+int main(void) {
 
-  PebbleAppHandlers handlers = {
-    .init_handler = &handle_init,
-    .deinit_handler = &handle_deinit
-  };
-  
+  init_app();
+
   // Kickstart event loop.
-  app_event_loop(params, &handlers);
+  app_event_loop();
+
+  deinit_app();
   
 }
